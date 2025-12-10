@@ -1,4 +1,4 @@
-package UDP_SERVER_AND_CLIENT;
+package UDP;
 
 import java.net.*;
 import java.io.*;

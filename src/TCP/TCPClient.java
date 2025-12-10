@@ -1,4 +1,4 @@
-package TCP_SERVER_AND_CLIENT;
+package TCP;
 
 import java.net.*;
 import java.io.*;

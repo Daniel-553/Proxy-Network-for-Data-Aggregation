@@ -1,13 +1,14 @@
-package UDP_SERVER_AND_CLIENT;
+package TCP;
 
 import java.io.*;
 import java.net.*;
 import java.util.*;
 
-public class UDPServer {
-    public static void main(String args[]) {
+public class TCPServer {
+    public static void main(String[] args) {
 
-        DatagramSocket serverSocket = null;
+        ServerSocket serverSocket = null;
+        Socket clientSocket = null;
 
         int portNumber = 0;
         String keyName = null;
@@ -39,7 +40,7 @@ public class UDPServer {
 
         try {
             System.out.println("Creating the main server socket at port " + portNumber);
-            serverSocket = new DatagramSocket(portNumber);
+            serverSocket = new ServerSocket(portNumber);
             System.out.println("Socket created");
         }
         catch (IOException e) {
@@ -48,15 +49,12 @@ public class UDPServer {
         }
 
         while(true) try {
-            byte[] buffer = new byte[256];
-            DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
-            System.out.println("Waiting for a request");
-            serverSocket.receive(packet);
-            InetAddress clientAddress = packet.getAddress();
-            int clientPort = packet.getPort();
-            System.out.println("A request received from " + clientAddress.toString() + ":" + clientPort);
+            System.out.println("Waiting for a client");
+            clientSocket = serverSocket.accept();
+            System.out.println("A client connected from " + clientSocket.getInetAddress().toString() + ":" + clientSocket.getPort());
 
-            Scanner in = new Scanner(new ByteArrayInputStream(packet.getData()));
+            Scanner in = new Scanner(clientSocket.getInputStream());
+            PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
 
             String command = "";
             String parameter = "";
@@ -110,14 +108,14 @@ public class UDPServer {
             System.out.println("Parsed command: " + input);
             System.out.println("Response: " + output);
 
-            packet.setData(output.getBytes());
-            serverSocket.send(packet);
+            out.println(output);
 
             in.close();
+            out.close();
+            clientSocket.close();
         }
         catch (IOException e) {
-            System.err.println("Error at work");
-            System.err.println(e);
+            System.err.println("Error at work: " + e);
         }
     }
 }

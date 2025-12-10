@@ -1,14 +1,13 @@
-package TCP_SERVER_AND_CLIENT;
+package UDP;
 
 import java.io.*;
 import java.net.*;
 import java.util.*;
 
-public class TCPServer {
-    public static void main(String[] args) {
+public class UDPServer {
+    public static void main(String args[]) {
 
-        ServerSocket serverSocket = null;
-        Socket clientSocket = null;
+        DatagramSocket serverSocket = null;
 
         int portNumber = 0;
         String keyName = null;
@@ -40,7 +39,7 @@ public class TCPServer {
 
         try {
             System.out.println("Creating the main server socket at port " + portNumber);
-            serverSocket = new ServerSocket(portNumber);
+            serverSocket = new DatagramSocket(portNumber);
             System.out.println("Socket created");
         }
         catch (IOException e) {
@@ -49,12 +48,15 @@ public class TCPServer {
         }
 
         while(true) try {
-            System.out.println("Waiting for a client");
-            clientSocket = serverSocket.accept();
-            System.out.println("A client connected from " + clientSocket.getInetAddress().toString() + ":" + clientSocket.getPort());
+            byte[] buffer = new byte[256];
+            DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+            System.out.println("Waiting for a request");
+            serverSocket.receive(packet);
+            InetAddress clientAddress = packet.getAddress();
+            int clientPort = packet.getPort();
+            System.out.println("A request received from " + clientAddress.toString() + ":" + clientPort);
 
-            Scanner in = new Scanner(clientSocket.getInputStream());
-            PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+            Scanner in = new Scanner(new ByteArrayInputStream(packet.getData()));
 
             String command = "";
             String parameter = "";
@@ -64,11 +66,11 @@ public class TCPServer {
             String input = "";
             String output = "";
 
-            command=in.next();
+            command = in.next();
             input = command;
             switch(command) {
                 case "GET":
-                    parameter=in.next();
+                    parameter = in.next();
                     input += " " + parameter;
                     switch(parameter) {
                         case "NAMES":
@@ -108,14 +110,14 @@ public class TCPServer {
             System.out.println("Parsed command: " + input);
             System.out.println("Response: " + output);
 
-            out.println(output);
+            packet.setData(output.getBytes());
+            serverSocket.send(packet);
 
             in.close();
-            out.close();
-            clientSocket.close();
         }
         catch (IOException e) {
-            System.err.println("Error at work: " + e);
+            System.err.println("Error at work");
+            System.err.println(e);
         }
     }
 }

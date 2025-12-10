@@ -4,18 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fa451593-3263-4fa4-aa5c-409360961ef6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SKJ_Proj.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/TCP_SERVER_AND_CLIENT/TCPClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/TCP_SERVER_AND_CLIENT/TCPServer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/UDP_SERVER_AND_CLIENT/UDPClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/UDP_SERVER_AND_CLIENT/UDPServer.java" afterDir="false" />
+    <list default="true" id="fa451593-3263-4fa4-aa5c-409360961ef6" name="Changes" comment="Created structure of the project plus working TCP and UDP Client and Server">
+      <change afterPath="$PROJECT_DIR$/src/TCP/TCPClientWrapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/UDP/UDPClientWrapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/proxy/NodeLink.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/proxy/RoutingTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Protocol.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Proxy.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProxyNode.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TCP_SERVER_AND_CLIENT/TCPClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TCP/TCPClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TCP_SERVER_AND_CLIENT/TCPServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TCP/TCPServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/UDP_SERVER_AND_CLIENT/UDPClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/UDP/UDPClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/UDP_SERVER_AND_CLIENT/UDPServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/UDP/UDPServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/proxy/Proxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/proxy/Proxy.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,12 +32,13 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_COMMON_BRANCH" value="main" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/src/proxy" />
     <option name="ROOT_SYNC" value="SYNC" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 7
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
   <component name="ProjectId" id="36fFz1lkHwnto9vmuxjd9Be8oV4" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -46,6 +49,7 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
     "node.js.detected.package.eslint": "true",
@@ -53,10 +57,18 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "vcs.Git",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RunManager" selected="Application.TCPClient">
+    <configuration name="Proxy" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="proxy.Proxy" />
+      <module name="SKJ_Proj" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Proxy" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="proxy.Proxy" />
       <module name="SKJ_Proj" />
@@ -70,15 +82,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Proxy" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="proxy.Proxy" />
-      <module name="SKJ_Proj" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="TCPClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="TCP_SERVER_AND_CLIENT.TCPClient" />
+      <option name="MAIN_CLASS_NAME" value="TCP.TCPClient" />
       <module name="SKJ_Proj" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -90,9 +95,11 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Proxy" />
         <item itemvalue="Application.TCPClient" />
         <item itemvalue="Application.Proxy" />
-        <item itemvalue="Application.Proxy" />
+        <item itemvalue="Application.TCPClient" />
+        <item itemvalue="Application.TCPClient" />
       </list>
     </recent_temporary>
   </component>
@@ -104,11 +111,47 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1765389979575</updated>
-      <workItem from="1765389980636" duration="3683000" />
+      <workItem from="1765389980636" duration="7796000" />
     </task>
+    <task id="LOCAL-00001" summary="Created structure of the project plus working TCP and UDP Client and Server">
+      <option name="closed" value="true" />
+      <created>1765394057798</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1765394057798</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Created structure of the project plus working TCP and UDP Client and Server" />
+    <option name="LAST_COMMIT_MESSAGE" value="Created structure of the project plus working TCP and UDP Client and Server" />
   </component>
 </project>
